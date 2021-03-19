@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react'
+import axios from "axios"
 
 export default class App extends Component {
   state = {
@@ -8,15 +9,13 @@ export default class App extends Component {
     isLoading: true
   }
   componentDidMount() {
-    setTimeout(() => {
-      fetch("https://jsonplaceholder.typicode.com/users").then(data => data.json()).then(users => {
-        this.setState({
-          users, //users:users
-          isLoading: false
-        })
-        console.log(users);
+    axios.get("https://jsonplaceholder.typicode.com/users").then(users => users.data).then(users => {
+      this.setState({
+        users, //users:users
+        isLoading: false
       })
-    }, 3000);
+      console.log(users);
+    })
   }
 
   render() {
